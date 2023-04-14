@@ -2,10 +2,13 @@ package com.zipcodewilmington.streams;
 
 import com.zipcodewilmington.streams.anthropoid.Person;
 import com.zipcodewilmington.streams.anthropoid.PersonFactory;
+import com.zipcodewilmington.streams.anthropoid.PersonWarehouse;
 import com.zipcodewilmington.streams.tools.RandomUtils;
 import com.zipcodewilmington.streams.tools.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +23,10 @@ public class StreamFilter {
      * No arg constructor
      */ //TODO - construct person stream of 100 person objects; startingCharacter is a random capital letter
     public StreamFilter() {
-        this(Stream.empty(), null);
+        //this(Stream.empty(), null);
+        this(Stream.generate(new PersonFactory()::createRandomPerson)
+                .limit(100),
+                (char) ('A'+ new Random().nextInt(26)));
     }
 
     /**
@@ -28,7 +34,9 @@ public class StreamFilter {
      * @param startingCharacter - character to filter by
      */ //TODO
     public StreamFilter(Person[] people, Character startingCharacter) {
-        this(Stream.empty(), null);
+        this(Arrays.stream(people).filter(person ->
+            person.getName().charAt(0) == startingCharacter
+        ), startingCharacter);
     }
 
     /**
@@ -36,7 +44,9 @@ public class StreamFilter {
      * @param startingCharacter - character to filter by
      */ //TODO
     public StreamFilter(List<Person> people, Character startingCharacter) {
-        this(Stream.empty(), null);
+        this(people.stream().filter(person ->
+                person.getName().charAt(0) == startingCharacter),
+                startingCharacter);
     }
 
 
@@ -55,6 +65,7 @@ public class StreamFilter {
      * @return a list of person object whose name starts with `this.startingCharacter`
      */ //TODO
     public List<Person> toListMultiLine() {
+        //return this(personStream.toArray(size -> new Person[size]),startingCharacter);
         return null;
     }
 

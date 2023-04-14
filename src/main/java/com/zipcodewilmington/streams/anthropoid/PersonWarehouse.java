@@ -5,6 +5,7 @@ import com.zipcodewilmington.streams.tools.logging.LoggerHandler;
 import com.zipcodewilmington.streams.tools.logging.LoggerWarehouse;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,7 +46,14 @@ public final class PersonWarehouse implements Iterable<Person> {
 //        return people.stream()
 //                .map(p -> people.stream().map(person -> {return person.getName();}).distinct())
 //                ;
-        return null;
+        ArrayList<Person> l = new ArrayList<>();
+//        return people.stream().map(person ->{
+//            l.stream().anyMatch(p -> p.getName().equals(person.getName()))? null : null;
+//        });
+        Set<String> set = new HashSet<>();
+        return people.stream()
+                .filter(Objects::nonNull)
+                .filter(person -> set.add(person.getName()));
 
     }
 
@@ -63,7 +71,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
-        return people.stream().limit(n);
+        return getUniquelyNamedPeople().limit(n);
     }
 
     /**
