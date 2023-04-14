@@ -42,14 +42,6 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-
-//        return people.stream()
-//                .map(p -> people.stream().map(person -> {return person.getName();}).distinct())
-//                ;
-        ArrayList<Person> l = new ArrayList<>();
-//        return people.stream().map(person ->{
-//            l.stream().anyMatch(p -> p.getName().equals(person.getName()))? null : null;
-//        });
         Set<String> set = new HashSet<>();
         return people.stream()
                 .filter(Objects::nonNull)
