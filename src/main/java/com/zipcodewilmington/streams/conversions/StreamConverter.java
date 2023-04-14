@@ -30,7 +30,7 @@ public final class StreamConverter extends PersonConversionAgent<Stream<Person>>
 
     // TODO
     public Stream<Person> toStream() {
-        return objectSequence;
+        return personList.stream();
     }
 
     // TODO
